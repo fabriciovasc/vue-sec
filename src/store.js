@@ -27,6 +27,8 @@ export default new Vuex.Store({
     logout (state) {
       state.token = null
       state.usuario = null
+      localStorage.removeItem('my-sec-app')
+      location.reload()
     }
   },
   actions: {

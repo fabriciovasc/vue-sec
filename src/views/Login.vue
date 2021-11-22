@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { mapMutations } from 'vuex'
+import HttpService from '@/services/HttpService';
 
 export default {
   name: 'login',
@@ -30,19 +30,15 @@ export default {
       'setUsuario',
       'setToken'
     ]),
-    login() {
-      axios.post('login',
-          {
-            username: this.nome,
-            password: this.senha
-          })
-        .then(res => {
-          console.log(res)
-          this.setUsuario(res.data)
-          this.setToken(res.headers.token)
-          this.$router.push('/')
-        })
-        .catch(error => console.log(error))
+    async login() {
+      const data = {
+        username: this.nome,
+        password: this.senha
+      }
+      const {user} = await HttpService.login(data) || {};
+      this.setUsuario(user);
+      this.setToken(user.token);
+      await this.$router.push('/');
     }
   }
 }
