@@ -1,6 +1,7 @@
 import axios from 'axios'
 import store from '@/store';
 import router from '@/router';
+import Vue from 'vue';
 
 const baseURL = 'https://8080-gray-clownfish-mu300pja.ws-us18.gitpod.io/api'
 
@@ -21,6 +22,7 @@ axios.interceptors.response.use(res => {
   }
   throw error;
 })
+Vue.config.productionTip = false
 
 const handleResponse = (response) => response && response.data;
 
